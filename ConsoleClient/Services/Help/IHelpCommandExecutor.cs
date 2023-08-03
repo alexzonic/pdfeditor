@@ -1,7 +1,6 @@
-﻿namespace ConsoleClient.Services.Help
+﻿namespace PdfEditor.ConsoleClient.Services.Help;
+
+public interface IHelpCommandExecutor
 {
-    public interface IHelpCommandExecutor
-    {
-        void Execute();
-    }
+    void Execute();
 }

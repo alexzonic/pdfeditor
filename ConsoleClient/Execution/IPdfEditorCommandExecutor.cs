@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace ConsoleClient.Execution
+namespace PdfEditor.ConsoleClient.Execution;
+
+public interface IPdfEditorCommandExecutor
 {
-    public interface IPdfEditorCommandExecutor
-    {
-        Task Execute(string command, object options);
-    }
+    Task Execute(string command, object options);
 }

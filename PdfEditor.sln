@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfEditor", "PdfEditor\PdfEditor.csproj", "{8F6B4D15-F2CD-46DF-9F63-37E8B1693BA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{8F6B4D15-F2CD-46DF-9F63-37E8B1693BA8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{D4598675-E7B3-42DA-BF47-6D60E06FE823}"
 EndProject

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Linq;
-using ConsoleClient.Exceptions;
+﻿using System.Linq;
+using PdfEditor.ConsoleClient.Exceptions;
 
-namespace ConsoleClient.Services.Help
+namespace PdfEditor.ConsoleClient.Services.Help;
+
+internal sealed class HelpCommandDetector : IHelpCommandDetector
 {
-    internal sealed class HelpCommandDetector : IHelpCommandDetector
+    public bool Detect(string[] args)
     {
-        public bool Detect(string[] args)
-        {
-            var contains = args.Contains(Commands.Help);
-            if (contains && args.Length != 1)
-                throw new HelpCommandDetectException();
-            return true;
-        }
+        var contains = args.Contains(Commands.Help);
+        if (contains && args.Length != 1)
+            throw new HelpCommandDetectException();
+        return true;
     }
 }

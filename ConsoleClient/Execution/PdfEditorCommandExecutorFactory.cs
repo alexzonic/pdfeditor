@@ -1,9 +1,8 @@
-﻿using PdfEditor;
+﻿using PdfEditor.Engine;
 
-namespace ConsoleClient.Execution
+namespace PdfEditor.ConsoleClient.Execution;
+
+internal static class PdfEditorCommandExecutorFactory
 {
-    internal static class PdfEditorCommandExecutorFactory
-    {
-        public static IPdfEditorCommandExecutor Create(IPdfEditor pdfEditor) => new PdfEditorCommandExecutor(pdfEditor);
-    }
+    public static IPdfEditorCommandExecutor Create(IPdfEditor pdfEditor) => new PdfEditorCommandExecutor(pdfEditor);
 }

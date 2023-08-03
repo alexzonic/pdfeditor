@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace ConsoleClient.Exceptions
+namespace PdfEditor.ConsoleClient.Exceptions;
+
+internal sealed class HelpCommandDetectException : Exception
 {
-    internal sealed class HelpCommandDetectException : Exception
+    public HelpCommandDetectException() : base("Incorrect --help command")
     {
-        public HelpCommandDetectException() : base("Incorrect --help command")
-        {
-        }
     }
 }

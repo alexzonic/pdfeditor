@@ -1,38 +1,37 @@
 ﻿using System.Threading.Tasks;
-using PdfEditor;
-using PdfEditor.Options;
+using PdfEditor.Engine;
+using PdfEditor.Engine.Options;
 
-namespace ConsoleClient.Execution
+namespace PdfEditor.ConsoleClient.Execution;
+
+internal sealed class PdfEditorCommandExecutor : IPdfEditorCommandExecutor
 {
-    internal sealed class PdfEditorCommandExecutor : IPdfEditorCommandExecutor
+    private readonly IPdfEditor _pdfEditor;
+
+    public PdfEditorCommandExecutor(IPdfEditor pdfEditor)
     {
-        private readonly IPdfEditor _pdfEditor;
+        _pdfEditor = pdfEditor;
+    }
 
-        public PdfEditorCommandExecutor(IPdfEditor pdfEditor)
+    public Task Execute(string command, object options)
+    {
+        switch (command)
         {
-            _pdfEditor = pdfEditor;
+            case Commands.Help:
+
+                break;
+            case Commands.CutUntil:
+                return _pdfEditor.CutUntilAsync((CutUntilOptions) options);
+            case Commands.CutAfter:
+                return _pdfEditor.CutAfterAsync((CutAfterOptions) options);
+            case Commands.CutPart:
+                return _pdfEditor.CutPartAsync((CutPartOptions) options);
+            case Commands.CutPages:
+                return _pdfEditor.CutPagesAsync((CutPagesOptions) options);
+            case Commands.CutAllPagesExcept:
+                return _pdfEditor.CutPagesExceptAsync((CutPagesExceptOptions) options);
         }
 
-        public Task Execute(string command, object options)
-        {
-            switch (command)
-            {
-                case Commands.Help:
-
-                    break;
-                case Commands.CutUntil:
-                    return _pdfEditor.CutDocumentUntil((CutDocumentUntilOptions) options);
-                case Commands.CutAfter:
-                    return _pdfEditor.CutDocumentAfter((CutDocumentAfterOptions) options);
-                case Commands.CutPart:
-                    return _pdfEditor.CutDocumentPart((CutDocumentPartOptions) options);
-                case Commands.CutPages:
-                    return _pdfEditor.CutDocumentPages((CutDocumentPagesOptions) options);
-                case Commands.CutAllPagesExcept:
-                    return _pdfEditor.CutAllDocumentPagesExcept((CutAllDocumentPagesExceptOptions) options);
-            }
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

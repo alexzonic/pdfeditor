@@ -3,11 +3,13 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net472</TargetFramework>
+        <RootNamespace>PdfEditor.ConsoleClient</RootNamespace>
         <AssemblyName>pdfeditor</AssemblyName>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PdfEditor\PdfEditor.csproj" />
+      <ProjectReference Include="..\Engine\Engine.csproj" />
     </ItemGroup>
 
 </Project>

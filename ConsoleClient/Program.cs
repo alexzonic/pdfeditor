@@ -1,17 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using ConsoleClient.Exceptions;
-using ConsoleClient.Execution;
-using ConsoleClient.Services.Help;
-using PdfEditor;
+﻿using System.Threading.Tasks;
 
-namespace ConsoleClient
+namespace PdfEditor.ConsoleClient;
+
+public static class Program
 {
-    public static class Program
+    public static async Task Main(string[] args)
     {
-        public static async Task Main(string[] args)
-        {
-            
-        }
+        
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace ConsoleClient.Services.Help
+﻿namespace PdfEditor.ConsoleClient.Services.Help;
+
+public interface IHelpCommandDetector
 {
-    public interface IHelpCommandDetector
-    {
-        bool Detect(string[] args);
-    }
+    bool Detect(string[] args);
 }

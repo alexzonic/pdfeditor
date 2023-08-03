@@ -2,10 +2,13 @@
 
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
-        <AssemblyName>PdfEditor.Core</AssemblyName>
+        <RootNamespace>PdfEditor.Engine</RootNamespace>
+        <AssemblyName>PdfEditor.Engine</AssemblyName>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
       <PackageReference Include="PdfSharp" Version="1.50.5147" />
     </ItemGroup>
 
