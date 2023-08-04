@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
+using PdfEditor.Core.IoC;
 using PdfEditor.Engine.Exceptions;
 using PdfEditor.Engine.Options;
 using PdfSharp.Pdf;
 
 namespace PdfEditor.Engine;
 
+[PutInIoC, UsedImplicitly]
 internal sealed class PdfEditor : IPdfEditor
 {
     public Task<PdfDocument> CutUntilAsync(CutUntilOptions options)
