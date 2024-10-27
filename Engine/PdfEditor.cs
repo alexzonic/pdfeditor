@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using PdfEditor.Engine.Exceptions;
+﻿using System.Linq;
+using PdfEditor.Core.Exceptions;
 using PdfEditor.Engine.Options;
 using PdfSharp.Pdf;
 
@@ -9,90 +7,30 @@ namespace PdfEditor.Engine;
 
 internal sealed class PdfEditor : IPdfEditor
 {
-    public Task<PdfDocument> CutUntilAsync(CutUntilOptions options)
+    public PdfDocument CutRange(CutRangesOptions options)
     {
+        var pagesToAdd = options.Ranges.SelectMany(x => x).ToArray();
+        var pagesToAddSet = pagesToAdd.ToHashSet();
+
+        if (pagesToAdd.Any(x => x < 0))
+            throw new InvalidArgumentException("Ranges has negative values");
+
+        if (pagesToAdd.Length != pagesToAddSet.Count)
+            throw new InvalidArgumentException("Ranges has intersections");
+
         var source = options.Document;
         var pages = source.Pages;
 
-        if (options.PageNumber > pages.Count)
-            throw new PdfPagesSoLessException("Page number more than document has");
+        if (pagesToAdd.Max() >= pages.Count)
+            throw new InvalidArgumentException("Ranges has value greater than document pages count");
 
         var document = new PdfDocument();
-        for (var i = 0; i < options.PageNumber; i++)
-            document.AddPage(pages[i + 1]);
 
-        return Task.FromResult(document);
-    }
-
-    public Task<PdfDocument> CutAfterAsync(CutAfterOptions options)
-    {
-        var source = options.Document;
-        var pages = source.Pages;
-
-        if (options.StartPage > pages.Count)
-            throw new PdfPagesSoLessException("Start page more than document has");
-
-        var document = new PdfDocument();
-        for (var i = options.StartPage - 1; i < pages.Count; i++)
-            document.AddPage(pages[i]);
-
-        return Task.FromResult(document);
-    }
-
-    public Task<PdfDocument> CutPartAsync(CutPartOptions options)
-    {
-        var source = options.Document;
-        var pages = source.Pages;
-
-        if (options.StartPage > pages.Count)
-            throw new PdfPagesSoLessException("Start page more than document has");
-
-        var document = new PdfDocument();
-        for (var i = 0; i < options.PagesCount; i++)
-            document.AddPage(pages[options.StartPage + i]);
-
-        return Task.FromResult(document);
-    }
-
-    public Task<PdfDocument> CutPagesAsync(CutPagesOptions options)
-    {
-        if (options.Numbers.Length < 1)
-            throw new ArgumentException("Numbers count must be more 0");
-
-        var source = options.Document;
-        var pages = source.Pages;
-        var set = options.Numbers.ToHashSet();
-
-        if (set.Any(x => x > pages.Count))
-            throw new PdfPagesSoLessException("Entered page number more than document has");
-
-        var document = new PdfDocument();
-        for (var i = 0; i < pages.Count; i++)
+        foreach (var page in pagesToAdd.Select(i => pages[i]))
         {
-            if (set.Contains(i + 1))
-                continue;
-            document.AddPage(pages[i]);
+            document.AddPage(page);
         }
 
-        return Task.FromResult(document);
-    }
-
-    public Task<PdfDocument> CutPagesExceptAsync(CutPagesExceptOptions options)
-    {
-        if (options.Numbers.Length < 1)
-            throw new ArgumentException("Numbers count must be more 0");
-
-        var source = options.Document;
-        var pages = source.Pages;
-        var set = options.Numbers.ToHashSet();
-
-        var document = new PdfDocument();
-        for (var i = 0; i < pages.Count; i++)
-        {
-            if (set.Contains(i + 1))
-                document.AddPage(pages[i]);
-        }
-
-        return Task.FromResult(document);
+        return document;
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace PdfEditor.Core.Logging;
 
+[UsedImplicitly]
 internal sealed class ConsoleLogger : ILogger
 {
     public void Info(string message)
